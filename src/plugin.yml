@@ -1,5 +1,5 @@
 name: StaffManager
-main: com.github.SkyBirdSoar.StaffManager
+main: com.github.SkyBirdSoar.StaffManager.StaffManager
 version: 0.0.1
 Author: SkyBirdSoar
 commands:
