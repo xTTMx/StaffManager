@@ -1,0 +1,8 @@
+# This will either allow /rc apply or disallow it [Allowed values: true, false]
+applyOn: true
+# This is your server name, feel free to add colors!
+serverName: §c[§bStaff§3Manager§c]
+# This value is the amount of pages you need to display your server's way of applying for staff
+# Configurable in the helpfile_pg<number>.txt that shows up when you type /sm in game
+#Values allowed: 1-5
+pagesNeeded: 1

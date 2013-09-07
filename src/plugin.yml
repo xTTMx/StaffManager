@@ -1,0 +1,11 @@
+name: StaffManager
+main: com.github.SkyBirdSoar.StaffManager
+version: 0.0.1
+Author: SkyBirdSoar
+commands:
+   sm:
+     description: Default StaffManager command.
+     usage: /sm
+     permission: sm.sm
+     permission-message: You do not have permission to use this command.
+permissions:
