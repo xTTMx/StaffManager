@@ -2,6 +2,7 @@ package com.github.SkyBirdSoar.Events;
 
 import com.github.SkyBirdSoar.StaffManager.StaffManager;
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -22,10 +23,9 @@ public class Event_Join {
         FileConfiguration cc = sm.getConfig("config", false);
         if(!file.exists()){
             Calendar d = Calendar.getInstance();
-            int date = d.get(Calendar.DAY_OF_MONTH);
-            int month = d.get(Calendar.MONTH);
-            int year = d.get(Calendar.YEAR);
-            List<Integer> time = Arrays.asList(date, month, year);
+            SimpleDateFormat sdf = new SimpleDateFormat();
+            sdf.applyPattern("d MMM yyyy");
+            String time = sdf.format(d.getTime());
             defaultPlayerConfig(e.getPlayer().getName(), fc, time);
         }
         if(file.exists()){
@@ -40,14 +40,14 @@ public class Event_Join {
             if(!cc.getBoolean("applyOn")){
                 sendMessage(e.getPlayer(), reminder + "&bRecruitment&c for staff is &4&lCLOSED&c.");
             }
-            if(fc.getInt("player.voteUp.number") > 10){
+            if(fc.getInt("player.voteUp.number") >= 10){
                 if(fc.getBoolean("alert.10.up")){
                     sendMessage(e.getPlayer(), notice + "&aCongratulations, you have gotten at least 10 votes!");
                     fc.set("alert.10.up", false);
                     sm.saveConfig(e.getPlayer().getName(), fc, true);
                 }
             }
-            if(fc.getInt("player.voteDown.number") > 10){
+            if(fc.getInt("player.voteDown.number") >= 10){
                 if(fc.getBoolean("alert.10.down")){
                     sendMessage(e.getPlayer(), notice + "&cYou have at least 10 downvotes!");
                     fc.set("alert.10.down", false);
@@ -57,19 +57,29 @@ public class Event_Join {
             
         }
     }
-    private void defaultPlayerConfig(String IGN, FileConfiguration fc, List<Integer> time){
+    private void defaultPlayerConfig(String IGN, FileConfiguration fc, String t){
         fc.set("player.app", false);
         fc.set("player.voteUp.number", 0);
         fc.set("player.voteUp.list", "");
         fc.set("player.voteDown.number", 0);
-        fc.set("player.voteDown.list", 0);
+        fc.set("player.voteDown.list", "");
         fc.set("player.banned", false);
-        fc.set("player.dateJoined", time);
+        fc.set("player.dateJoined", t);
         fc.set("alert.10.up", true);
         fc.set("alert.10.down", true);
         sm.saveConfig(IGN, fc, true);
     }
     private void sendMessage(Player p, String m){
         p.sendMessage(sm.parseColor(m));
+    }
+    public void resetConfig(String IGN, FileConfiguration fc){
+        fc.set("player.app", false);
+        fc.set("player.voteUp.number", 0);
+        fc.set("player.voteUp.list", "");
+        fc.set("player.voteDown.number", 0);
+        fc.set("player.voteDown.list", "");
+        fc.set("alert.10.up", true);
+        fc.set("alert.10.down", true);
+        sm.saveConfig(IGN, fc, true);
     }
 }

@@ -4,12 +4,12 @@ import com.github.SkyBirdSoar.StaffManager.CommandHandler;
 import com.github.SkyBirdSoar.StaffManager.StaffManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.event.player.PlayerJoinEvent;
 
 public class Command_SMA {
     private StaffManager sm;
     private CommandHandler ch;
-    String[] commands = {"help", "addstaff", "demote", "broadcast", "close", "resetvotes", "app", "purge", "ban", "unban", "banlist", "version"};
+    String[] commands = {"help", "addstaff", "demote", "broadcast", "resetvotes", "app", "purge", "ban", "unban", "banlist", "version"};
+    String[] commandAliases = {"bc"};
     public Command_SMA(StaffManager pl, CommandHandler pl2){
         sm = pl;
         ch = pl2;
@@ -30,8 +30,14 @@ public class Command_SMA {
                     correctCommand = true;
                 }
             }
+            for(int a = 0; a < commandAliases.length; a++){
+                if(args[0].equals(commandAliases[a])){
+                    correctCommand = true;
+                }
+            }
             if(correctCommand){
                 switch(args[0]){
+                    case "bc":
                     case "broadcast":
                         if(sender.hasPermission("sma.broadcast")){
                             String message = "";
@@ -62,6 +68,46 @@ public class Command_SMA {
                         if(sender.hasPermission("sma.help")){
                             Command_HELP cmdh = new Command_HELP(sm, this);
                             cmdh.help(sender, cmd, label, args);
+                        }
+                        else{
+                            ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
+                        }
+                        break;
+                    case "addstaff":
+                        if(sender.hasPermission("sma.addstaff")){
+                            Command_ADDSTAFF cmdas = new Command_ADDSTAFF(sm, ch);
+                            cmdas.addstaff(sender, cmd, label, args);
+                        }
+                        else{
+                            ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
+                        }
+                        break;
+                    case "remove":
+                    case "delete":
+                    case "rm":
+                    case "del":
+                    case "demote":
+                        if(sender.hasPermission("sma.demote")){
+                            Command_DEMOTE cmdd = new Command_DEMOTE(sm, ch);
+                            cmdd.demote(sender, cmd, label, args);
+                        }
+                        else{
+                            ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
+                        }
+                        break;
+                    case "purge":
+                        if(sender.hasPermission("sma.purge")){
+                            Command_PURGE cmdp = new Command_PURGE(sm, ch);
+                            cmdp.purge(sender, cmd, label, args);
+                        }
+                        else{
+                            ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
+                        }
+                        break;
+                    case "resetvotes":
+                        if(sender.hasPermission("sma.resetvotes")){
+                            Command_RESETVOTES cmdrv = new Command_RESETVOTES(sm, ch);
+                            cmdrv.resetVotes(sender, cmd, label, args);
                         }
                         else{
                             ch.sendMessage(sender, ch.PERMISSION_MESSAGE);

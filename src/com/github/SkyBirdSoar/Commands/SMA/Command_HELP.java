@@ -30,17 +30,16 @@ public class Command_HELP {
         String prefix = "&a - ";
         String notAvailablePrefix = "&c - ";
         commands[0] = prefix + commands[0] + "&b: Shows the default help for StaffManager.";
-        commands[1] = notAvailablePrefix + commands[1] + "&b: Adds a player to the staff list.";
-        commands[2] = notAvailablePrefix + commands[2] + "&b: Removes a player from the staff list.";
+        commands[1] = prefix + commands[1] + "&b: Adds a player to the staff list.";
+        commands[2] = prefix + commands[2] + "&b: Removes a player from the staff list.";
         commands[3] = prefix + commands[3] + "&b: Broadcasts a message with the server name as a prefix.";
-        commands[4] = notAvailablePrefix + commands[4] + "&b: Closes an application without notifying the person.";
-        commands[5] = notAvailablePrefix + commands[5] + "&b: Resets a player's votes.";
-        commands[6] = notAvailablePrefix + commands[6] + "&b: Application Manager, /sma app <IGN> <accept|deny>";
-        commands[7] = notAvailablePrefix + commands[7] + "&b: Deletes all player data.";
-        commands[8] = notAvailablePrefix + commands[8] + "&b: Prevents a player from applying.";
-        commands[9] = notAvailablePrefix + commands[9] + "&b: Unbans a player.";
-        commands[10] = notAvailablePrefix + commands[10] + "&b: Shows the list of players which are banned";
-        commands[11] = prefix + commands[11] + "&b: Shows the version of StaffManager.";
+        commands[4] = prefix + commands[4] + "&b: Resets a player's votes.";
+        commands[5] = notAvailablePrefix + commands[5] + "&b: Application Manager, /sma app <IGN> <accept|deny>";
+        commands[6] = prefix + commands[6] + "&b: Deletes data.";
+        commands[7] = notAvailablePrefix + commands[7] + "&b: Prevents a player from applying.";
+        commands[8] = notAvailablePrefix + commands[8] + "&b: Unbans a player.";
+        commands[9] = notAvailablePrefix + commands[9] + "&b: Shows the list of players which are banned";
+        commands[10] = prefix + commands[10] + "&b: Shows the version of StaffManager.";
         sender.sendMessage(sm.parseColor("&aThe commands available are: "));
         for(int a = 0; a < commands.length; a++){
             sender.sendMessage(sm.parseColor(commands[a]));

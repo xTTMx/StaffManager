@@ -22,7 +22,7 @@ public class Command_SM {
         sm = pl;
         ch = pl2;
     }
-    public final String[] commands = {"2", "3", "4", "5", "help", "apply", "vote", "status", "applyers", "staff", "top"};
+    public final String[] commands = {"2", "3", "4", "5", "help", "apply", "vote", "status", "applicants", "staff", "top"};
     public void commandSM(CommandSender sender, Command cmd, String label, String[] args){
         if(args.length == 0){
                 if(sender.hasPermission("sm.help.1")){
@@ -77,6 +77,42 @@ public class Command_SM {
                             if(sender.hasPermission("sm.help")){
                                 Command_HELP cmdh = new Command_HELP(sm, this);
                                 cmdh.help(sender, cmd, label, args);
+                            }
+                            else{
+                                ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
+                            }
+                            break;
+                        case "status":
+                            if(sender.hasPermission("sm.status")){
+                                Command_STATUS cmds = new Command_STATUS(sm, ch);
+                                cmds.status(sender, cmd, label, args);
+                            }
+                            else{
+                                ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
+                            }
+                            break;
+                        case "top":
+                            if(sender.hasPermission("sm.top")){
+                                Command_TOP cmdt = new Command_TOP(sm, ch);
+                                cmdt.top(sender, cmd, label, args);
+                            }
+                            else{
+                                ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
+                            }
+                            break;
+                        case "applicants":
+                            if(sender.hasPermission("sm.applicants")){
+                                Command_APPLICANTS cmda = new Command_APPLICANTS(sm, ch);
+                                cmda.applicants(sender, cmd, label, args);
+                            }
+                            else{
+                                ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
+                            }
+                            break;
+                        case "staff":
+                            if(sender.hasPermission("sm.staff")){
+                                Command_STAFF cmds = new Command_STAFF(sm, ch);
+                                cmds.staff(sender, cmd, label, args);
                             }
                             else{
                                 ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
