@@ -1,3 +1,3 @@
 StaffManager
 ============
-LATEST VERSION: 0.0.1
+LATEST VERSION: 0.0.2
