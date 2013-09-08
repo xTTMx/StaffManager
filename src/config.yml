@@ -6,3 +6,5 @@ serverName: §c[§bStaff§3Manager§c]
 # Configurable in the helpfile_pg<number>.txt that shows up when you type /sm in game
 #Values allowed: 1-5
 pagesNeeded: 1
+# Do not edit this value, it will be automatically updated by the plugin when the config file is confirmed to be usable for the next version
+version: 0.0.2

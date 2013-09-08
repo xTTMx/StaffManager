@@ -1,5 +1,6 @@
 package com.github.SkyBirdSoar.Commands.SM;
 
+import com.github.SkyBirdSoar.StaffManager.CommandHandler;
 import com.github.SkyBirdSoar.StaffManager.StaffManager;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,15 +16,20 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 public class Command_SM {
     private StaffManager sm;
+    private CommandHandler ch;
     private final String defaultHelpFileName = "help_file_page_";
-    public Command_SM(StaffManager pl){
+    public Command_SM(StaffManager pl, CommandHandler pl2){
         sm = pl;
+        ch = pl2;
     }
     public final String[] commands = {"2", "3", "4", "5", "help", "apply", "vote", "status", "applyers", "staff", "top"};
-    public boolean commandSM(CommandSender sender, Command cmd, String label, String[] args){
+    public void commandSM(CommandSender sender, Command cmd, String label, String[] args){
         if(args.length == 0){
                 if(sender.hasPermission("sm.help.1")){
                     printHelpFile(1, sender);
+                }
+                else{
+                    ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
                 }
             }
             if(args.length > 0){
@@ -39,37 +45,53 @@ public class Command_SM {
                             if(sender.hasPermission("sm.help.2")){
                                 printHelpFile(2, sender);
                             }
+                            else{
+                                ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
+                            }
                             break;
                         case "3":
                             if(sender.hasPermission("sm.help.3")){
                                 printHelpFile(3, sender);
+                            }
+                            else{
+                                ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
                             }
                             break;
                         case "4":
                             if(sender.hasPermission("sm.help.4")){
                                 printHelpFile(4, sender);
                             }
+                            else{
+                                ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
+                            }
                             break;
                         case "5":
                             if(sender.hasPermission("sm.help.5")){
                                 printHelpFile(5, sender);
                             }
+                            else{
+                                ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
+                            }
                             break;
                         case "help":
-                            Command_HELP cmdh = new Command_HELP(sm, this);
-                            cmdh.help(sender, cmd, label, args);
+                            if(sender.hasPermission("sm.help")){
+                                Command_HELP cmdh = new Command_HELP(sm, this);
+                                cmdh.help(sender, cmd, label, args);
+                            }
+                            else{
+                                ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
+                            }
                             break;
                         default:
-                            sender.sendMessage(sm.parseColor("&cSorry, the command you asked for is not implemented yet."));
+                            ch.sendMessage(sender, "&cSorry, the command you asked for is not implemented yet.");
                             break;
                     }
                 }
                 if(!correctCommand){
-                    sender.sendMessage(sm.parseColor("&cUnknown argument: &d" + args[0]));
-                    sender.sendMessage(sm.parseColor("&cPlease check &b/sm help &cfor help."));
+                    ch.sendMessage(sender, "&cUnknown argument: &d" + args[0]);
+                    ch.sendMessage(sender, "&cPlease check &b/sm help &cfor help.");
                 }
             }
-        return true;
     }
     private boolean isPageNeeded(int pageNumber){
         FileConfiguration fc = sm.getConfig("config", false);
@@ -155,21 +177,21 @@ public class Command_SM {
             }
             for(int b = 0; b < toPrint.length; b++){
                 if(toPrint[b] != null){
-                    sender.sendMessage(sm.parseColor(toPrint[b]));
+                    ch.sendMessage(sender, toPrint[b]);
                 }
             }
             if(isPageNeeded(pageNumber + 1)){
-                sender.sendMessage(sm.parseColor(toPrint[0]));
-                sender.sendMessage(sm.parseColor("&6Do /sm " + (pageNumber + 1) + " to continue"));
-                sender.sendMessage(sm.parseColor(toPrint[0]));
+                ch.sendMessage(sender, toPrint[0]);
+                ch.sendMessage(sender, "&6Do /sm " + (pageNumber + 1) + " to continue");
+                ch.sendMessage(sender, toPrint[0]);
             }
             else{
-               sender.sendMessage(sm.parseColor(toPrint[0]));
-               sender.sendMessage(sm.parseColor("      &cEND"));
-               sender.sendMessage(sm.parseColor(toPrint[0]));
+               ch.sendMessage(sender, toPrint[0]);
+               ch.sendMessage(sender, "      &cEND");
+               ch.sendMessage(sender, toPrint[0]);
             }
         } catch (FileNotFoundException ex) {
-            sender.sendMessage(sm.parseColor("&cUnable to find the specified help file."));
+            ch.sendMessage(sender, "&cUnable to find the specified help file.");
         }
     }
 }

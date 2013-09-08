@@ -19,8 +19,12 @@ public class StaffManager extends JavaPlugin{
     
     @Override
     public void onEnable(){
+        log(Level.WARNING, "ALL Previous Config Files Will Not Be Compatible With This Release!");
         //Add CommandHandlers here
-        getCommand("sm").setExecutor(new CommandHandler(this));
+        CommandHandler ch = new CommandHandler(this);
+        getCommand("sm").setExecutor(ch);
+        getCommand("sma").setExecutor(ch);
+        this.getServer().getPluginManager().registerEvents(new SMEventHandler(this), this);
         SERVER_NAME = this.getConfig("config", false).getString("serverName");
         SERVER_NAME = parseColor(SERVER_NAME);
         getVersion();
@@ -46,9 +50,6 @@ public class StaffManager extends JavaPlugin{
         if(player){
             pConfig = getFile(configName, true);
             pFileConfig = YamlConfiguration.loadConfiguration(pConfig);
-            if(!pConfig.exists()){
-                defaultPlayerConfig(configName, pFileConfig);
-            }
         }
         // Look for defaults in the jar
         
@@ -91,20 +92,7 @@ public class StaffManager extends JavaPlugin{
             getLogger().log(Level.SEVERE, "Could not save config to " + pConfig.getName(), ex);
         }
     }
-    /**
-     * Generates the default player configuration for IGN.
-     * @param IGN The IGN of the player.
-     */
-    public void defaultPlayerConfig(String IGN, FileConfiguration fc){
-        fc.set("player.app", false);
-        fc.set("player.voteUps", 0);
-        fc.set("player.voteDowns", 0);
-        fc.set("player.banned", false);
-        fc.set("voters.up", "");
-        fc.set("voters.down", "");
-        fc.set("deletable", true);
-        this.saveConfig(IGN, fc, true);
-    }
+
     /**
      * Checks config.yml for invalid data and outputs valid data to the server administrator.
      */
@@ -144,7 +132,7 @@ public class StaffManager extends JavaPlugin{
         }
     }
     public String parseColor(String a){
-        String[] codes = {"a", "b", "c", "d", "e", "f", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "l", "n", "o", "r", "k"};
+        String[] codes = {"a", "b", "c", "d", "e", "f", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "l", "m", "n", "o", "r", "k"};
         for(int b = 0; b < codes.length; b++){
             a = a.replace("&"+ codes[b], "§" + codes[b]);
         }
@@ -161,7 +149,13 @@ public class StaffManager extends JavaPlugin{
         File file = new File(getDataFolder(), fileName + EXT);
         if(player){
             file = new File(getDataFolder(), "players");
+            if(!file.isDirectory()){
+                if(!file.mkdir()){
+                    log(Level.SEVERE, "Unable to create directory: players");
+                }
+            }
             file = new File(file, fileName + EXT);
+            //@todo
         }
         return file;
     }
