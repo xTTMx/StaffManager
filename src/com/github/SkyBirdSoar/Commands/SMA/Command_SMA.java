@@ -1,7 +1,7 @@
 package com.github.SkyBirdSoar.Commands.SMA;
 
-import com.github.SkyBirdSoar.StaffManager.CommandHandler;
-import com.github.SkyBirdSoar.StaffManager.StaffManager;
+import com.github.SkyBirdSoar.Main.CommandHandler;
+import com.github.SkyBirdSoar.Main.StaffManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
@@ -9,7 +9,7 @@ public class Command_SMA {
     private StaffManager sm;
     private CommandHandler ch;
     String[] commands = {"help", "addstaff", "demote", "broadcast", "resetvotes", "app", "purge", "ban", "unban", "banlist", "version"};
-    String[] commandAliases = {"bc"};
+    String[] commandAliases = {"bc", "remove", "delete", "del", "rm"};
     public Command_SMA(StaffManager pl, CommandHandler pl2){
         sm = pl;
         ch = pl2;
@@ -108,6 +108,42 @@ public class Command_SMA {
                         if(sender.hasPermission("sma.resetvotes")){
                             Command_RESETVOTES cmdrv = new Command_RESETVOTES(sm, ch);
                             cmdrv.resetVotes(sender, cmd, label, args);
+                        }
+                        else{
+                            ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
+                        }
+                        break;
+                    case "app":
+                        if(sender.hasPermission("sma.app")){
+                            Command_APP cmda = new Command_APP(sm, ch);
+                            cmda.app(sender, cmd, label, args);
+                        }
+                        else{
+                            ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
+                        }
+                        break;
+                    case "ban":
+                        if(sender.hasPermission("sma.ban")){
+                            Command_BAN cmdb = new Command_BAN(sm, ch);
+                            cmdb.ban(sender, cmd, label, args);
+                        }
+                        else{
+                            ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
+                        }
+                        break;
+                    case "unban":
+                        if(sender.hasPermission("sma.unban")){
+                            Command_UNBAN cmdub = new Command_UNBAN(sm, ch);
+                            cmdub.unban(sender, cmd, label, args);
+                        }
+                        else{
+                            ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
+                        }
+                        break;
+                    case "banlist":
+                        if(sender.hasPermission("sma.banlist")){
+                            Command_BANLIST cmdbl = new Command_BANLIST(sm, ch);
+                            cmdbl.list(sender, cmd, label, args);
                         }
                         else{
                             ch.sendMessage(sender, ch.PERMISSION_MESSAGE);

@@ -1,4 +1,4 @@
-package com.github.SkyBirdSoar.StaffManager;
+package com.github.SkyBirdSoar.Main;
 
 import com.github.SkyBirdSoar.Events.Event_Join;
 import org.bukkit.event.Listener;
@@ -8,12 +8,16 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 public class SMEventHandler implements Listener{
     private StaffManager sm;
+    private Event_Join ej;
     public SMEventHandler(StaffManager pl){
         sm = pl;
     }
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e){
-        Event_Join ej = new Event_Join(sm);
+        ej = new Event_Join(sm);
         ej.onPlayerJoin(e);
+    }
+    public Event_Join getEventJoinHandler(){
+        return ej;
     }
 }

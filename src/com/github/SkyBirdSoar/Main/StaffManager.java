@@ -1,4 +1,4 @@
-package com.github.SkyBirdSoar.StaffManager;
+package com.github.SkyBirdSoar.Main;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,15 +16,18 @@ public class StaffManager extends JavaPlugin{
     public String SERVER_NAME;
     public String VERSION;
     public String PLUGIN;
+    private CommandHandler ch;
+    private SMEventHandler smeh;
     
     @Override
     public void onEnable(){
         log(Level.WARNING, "ALL Previous Config Files Will Not Be Compatible With This Release!");
         //Add CommandHandlers here
-        CommandHandler ch = new CommandHandler(this);
+        ch = new CommandHandler(this);
         getCommand("sm").setExecutor(ch);
         getCommand("sma").setExecutor(ch);
-        this.getServer().getPluginManager().registerEvents(new SMEventHandler(this), this);
+        smeh = new SMEventHandler(this);
+        this.getServer().getPluginManager().registerEvents(smeh, this);
         SERVER_NAME = this.getConfig("config", false).getString("serverName");
         SERVER_NAME = parseColor(SERVER_NAME);
         getVersion();
@@ -143,7 +146,7 @@ public class StaffManager extends JavaPlugin{
     }
     public void broadcast(String message){
         message = parseColor(message);
-        this.getServer().broadcastMessage(SERVER_NAME + message);
+        this.getServer().broadcastMessage(SERVER_NAME + " " + message);
     }
     public File getFile(String fileName, boolean player){
         File file = new File(getDataFolder(), fileName + EXT);
@@ -191,5 +194,11 @@ public class StaffManager extends JavaPlugin{
             s = "&bStaff&1Manager " + VERSION;
         }
         return s;
+    }
+    public CommandHandler getCommandHandler(){
+        return ch;
+    }
+    public SMEventHandler getEventHandler(){
+        return smeh;
     }
 }

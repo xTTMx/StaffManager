@@ -1,8 +1,8 @@
 package com.github.SkyBirdSoar.Commands.SMA;
 
 import com.github.SkyBirdSoar.Commands.SM.Command_STAFF;
-import com.github.SkyBirdSoar.StaffManager.CommandHandler;
-import com.github.SkyBirdSoar.StaffManager.StaffManager;
+import com.github.SkyBirdSoar.Main.CommandHandler;
+import com.github.SkyBirdSoar.Main.StaffManager;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;

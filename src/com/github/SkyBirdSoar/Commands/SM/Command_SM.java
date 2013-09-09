@@ -1,7 +1,7 @@
 package com.github.SkyBirdSoar.Commands.SM;
 
-import com.github.SkyBirdSoar.StaffManager.CommandHandler;
-import com.github.SkyBirdSoar.StaffManager.StaffManager;
+import com.github.SkyBirdSoar.Main.CommandHandler;
+import com.github.SkyBirdSoar.Main.StaffManager;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -103,7 +103,7 @@ public class Command_SM {
                         case "applicants":
                             if(sender.hasPermission("sm.applicants")){
                                 Command_APPLICANTS cmda = new Command_APPLICANTS(sm, ch);
-                                cmda.applicants(sender, cmd, label, args);
+                                cmda.list(sender, cmd, label, args);
                             }
                             else{
                                 ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
@@ -112,7 +112,16 @@ public class Command_SM {
                         case "staff":
                             if(sender.hasPermission("sm.staff")){
                                 Command_STAFF cmds = new Command_STAFF(sm, ch);
-                                cmds.staff(sender, cmd, label, args);
+                                cmds.list(sender, cmd, label, args);
+                            }
+                            else{
+                                ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
+                            }
+                            break;
+                        case "vote":
+                            if(sender.hasPermission("sm.vote")){
+                                Command_VOTE cmdv = new Command_VOTE(sm, ch);
+                                cmdv.vote(sender, cmd, label, args);
                             }
                             else{
                                 ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
