@@ -23,6 +23,10 @@ public class CommandHandler implements CommandExecutor{
     public final String ERROR_LIST_NOT_CHANGED = "&c&lERROR:&c An error occurred while processing your request.";
     public final String ERROR_PLAYER_ALREADY_VOTED = "&c&lERROR:&c You have already voted for this player.";
     public final String ERROR_UNKNOWN_ARGUMENT = "&c&lERROR:&c Unknown argument: ";
+    public final String ERROR_PLAYER_ALREADY_APPLIED = "&c&lERROR:&c You have already applied. To check the status of your application, do /sm status";
+    public final String ERROR_PLAYER_IS_BANNED = "&c&lERROR:&c You cannot apply as you are banned.";
+    public final String ERROR_APPLY_NOT_ALLOWED = "&c&lERROR:&c You cannot apply at this point of time.";
+    public final String ERROR_PLAYER_NOT_APPLYING = "&c&lERROR:&c Player did not apply, hence, vote is not allowed";
     CommandHandler(StaffManager pl){
         sm = pl;
     }

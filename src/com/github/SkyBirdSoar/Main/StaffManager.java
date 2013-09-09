@@ -21,7 +21,6 @@ public class StaffManager extends JavaPlugin{
     
     @Override
     public void onEnable(){
-        log(Level.WARNING, "ALL Previous Config Files Will Not Be Compatible With This Release!");
         //Add CommandHandlers here
         ch = new CommandHandler(this);
         getCommand("sm").setExecutor(ch);

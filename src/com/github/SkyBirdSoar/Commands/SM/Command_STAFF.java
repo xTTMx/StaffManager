@@ -25,12 +25,13 @@ public class Command_STAFF extends ListAPI{
                 String[] array = this.getList();
                 Player[] player = sm.getServer().getOnlinePlayers();
                 for(int a = 0; a < array.length && a < 10; a++){
-                    for(int b = 0; b < player.length; b++){
+                    for(int b = 0; b < player.length -1; b++){
                         if(player[b].getName().equals(array[a])){
                             staffOnline += array[a] + ", ";
                             noOfStaffOnline++;
                         }
                     }
+                    staffOnline += player[++noOfStaffOnline].getName();
                 }
                 ch.sendMessage(sender, "&6Total Staff Online: " + noOfStaffOnline);
                 ch.sendMessage(sender, "&6Staff Online: &b" + staffOnline);
