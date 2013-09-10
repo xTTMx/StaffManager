@@ -27,6 +27,7 @@ public class CommandHandler implements CommandExecutor{
     public final String ERROR_PLAYER_IS_BANNED = "&c&lERROR:&c You cannot apply as you are banned.";
     public final String ERROR_APPLY_NOT_ALLOWED = "&c&lERROR:&c You cannot apply at this point of time.";
     public final String ERROR_PLAYER_NOT_APPLYING = "&c&lERROR:&c Player did not apply, hence, vote is not allowed";
+    public final String ERROR_PLAYER_DOES_NOT_HAVE_PERMISSION_TO_MANAGE_GROUPS = "&c&lERROR:&c You do not have permission to manage groups.";
     CommandHandler(StaffManager pl){
         sm = pl;
     }

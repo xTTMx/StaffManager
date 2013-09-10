@@ -7,10 +7,10 @@ serverName: §c[§bStaff§3Manager§c]
 #Values allowed: 1-5
 pagesNeeded: 1
 # Do not edit this value, it will be automatically updated by the plugin when the config file is confirmed to be usable for the next version
-version: 1.0.0
+version: 1.0.1
 # Password to use /sma purge (Extra Protection)
 purgePassword: password
 # Enable purge password?
 purgeProtect: true
-# Permissions Manager (Currently only accepts PermissionsEx or GroupManager)
+# Permissions Manager (Currently only accepts PermissionsEx or GroupManager or None)(Case sensitive)
 permMan: PermissionsEx

@@ -1,6 +1,5 @@
 package com.github.SkyBirdSoar.Commands.SMA;
 
-import com.github.SkyBirdSoar.Events.Event_Join;
 import com.github.SkyBirdSoar.Exceptions.UnknownPermissionsManagerException;
 import com.github.SkyBirdSoar.Main.CommandHandler;
 import com.github.SkyBirdSoar.Main.SMEventHandler;
@@ -38,123 +37,190 @@ public class Command_APP {
                     }
                     else{
                         FileConfiguration fc = sm.getConfig("config", false);
-                        if(!fc.getString("permMan").equals("PermissionsEx") && !fc.getString("permMan").equals("GroupManager")){
+                        if(!fc.getString("permMan").equals("PermissionsEx") && !fc.getString("permMan").equals("GroupManager") && !fc.getString("permMan").equals("None")){
                             ch.sendMessage(sender, "&cAn error occurred: UnknownPermissionsManagerException");
                             ch.sendMessage(sender, "&cPlease edit StaffManager/config.yml and change it to a recognised PermissionsManager.");
                             throw new UnknownPermissionsManagerException(fc.getString("permMan"));
                         }
                         else if(fc.getString("permMan").equals("PermissionsEx")){
-                            FileConfiguration dc = sm.getConfig(args[1], true);
-                            if(dc.getBoolean("player.app")){
-                                resetConfig(args[1], dc);
-                                sm.getServer().dispatchCommand(sm.getServer().getConsoleSender(), "pex user " + args[1] + " group set " + args[3]);
-                                sm.broadcast("&aCongratulations " + args[1] + ", you have been promoted to: " + args[3]);
-                                try {
-                                    Scanner scan = new Scanner(new File(sm.getFolder("data"), "staff.txt"));
-                                    List<String> list = new ArrayList<>();
-                                    int lines = 0;
-                                    while(scan.hasNextLine()){
-                                        list.add(scan.nextLine());
-                                        lines++;
-                                    }
-                                    Scanner scan2 = new Scanner(new File(sm.getFolder("data"), "applicants.txt"));
-                                    List<String> list2 = new ArrayList<>();
-                                    int lines2 = 0;
-                                    while(scan2.hasNextLine()){
-                                        list2.add(scan2.nextLine());
-                                        lines2++;
-                                    }
-                                    String[] alrThr = new String[lines];
-                                    String[] alrThr2 = new String[lines2];
-                                    alrThr = list.toArray(alrThr);
-                                    alrThr2 = list2.toArray(alrThr2);
-                                    boolean check = false;
-                                    PrintWriter pw = new PrintWriter(new FileWriter(new File(sm.getFolder("data"), "staff.txt")));
-                                    for(int a = 0; a < alrThr.length; a++){
-                                        pw.println(alrThr[a]);
-                                        if(alrThr[a].equals(args[1])){
-                                            check = true;
+                            if(sender.hasPermission("permissions.user.membership.*")){
+                                FileConfiguration dc = sm.getConfig(args[1], true);
+                                if(dc.getBoolean("player.app")){
+                                    resetConfig(args[1], dc);
+                                    sm.getServer().dispatchCommand(sender, "pex user " + args[1] + " group set " + args[3]);
+                                    sm.broadcast("&aCongratulations " + args[1] + ", you have been promoted to: " + args[3]);
+                                    try {
+                                        Scanner scan = new Scanner(new File(sm.getFolder("data"), "staff.txt"));
+                                        List<String> list = new ArrayList<>();
+                                        int lines = 0;
+                                        while(scan.hasNextLine()){
+                                            list.add(scan.nextLine());
+                                            lines++;
                                         }
-                                    }
-                                    if(!check){
-                                        pw.println(args[1]);
-                                    }
-                                    pw.close();
-                                    PrintWriter pw2 = new PrintWriter(new FileWriter(new File(sm.getFolder("data"), "applicants.txt")));
-                                    for(int a = 0; a < alrThr2.length; a++){
-                                        if(!args[1].equals(alrThr2[a])){
-                                            pw2.println(alrThr2[a]);
+                                        Scanner scan2 = new Scanner(new File(sm.getFolder("data"), "applicants.txt"));
+                                        List<String> list2 = new ArrayList<>();
+                                        int lines2 = 0;
+                                        while(scan2.hasNextLine()){
+                                            list2.add(scan2.nextLine());
+                                            lines2++;
                                         }
+                                        String[] alrThr = new String[lines];
+                                        String[] alrThr2 = new String[lines2];
+                                        alrThr = list.toArray(alrThr);
+                                        alrThr2 = list2.toArray(alrThr2);
+                                        boolean check = false;
+                                        PrintWriter pw = new PrintWriter(new FileWriter(new File(sm.getFolder("data"), "staff.txt")));
+                                        for(int a = 0; a < alrThr.length; a++){
+                                            pw.println(alrThr[a]);
+                                            if(alrThr[a].equals(args[1])){
+                                                check = true;
+                                            }
+                                        }
+                                        if(!check){
+                                            pw.println(args[1]);
+                                        }
+                                        pw.close();
+                                        PrintWriter pw2 = new PrintWriter(new FileWriter(new File(sm.getFolder("data"), "applicants.txt")));
+                                        for(int a = 0; a < alrThr2.length; a++){
+                                            if(!args[1].equals(alrThr2[a])){
+                                                pw2.println(alrThr2[a]);
+                                            }
+                                        }
+                                        pw2.close();
+                                        ch.sendMessage(sender, "&cSuccess!");
+                                        sm.getServer().dispatchCommand(sender, "email send " + args[1] + " Congratulations! Your application has been approved!");
+                                    } catch (FileNotFoundException ex) {
+                                        Logger.getLogger(Command_APP.class.getName()).log(Level.SEVERE, null, ex);
+                                        ch.sendMessage(sender, "&cAn error occurred.");
+                                    } catch (IOException ex) {
+                                        Logger.getLogger(Command_APP.class.getName()).log(Level.SEVERE, null, ex);
+                                        ch.sendMessage(sender, "&cAn error occurred.");
                                     }
-                                    pw2.close();
-                                    ch.sendMessage(sender, "&cSuccess!");
-                                    sm.getServer().dispatchCommand(sender, "email send " + args[1] + " Congratulations! Your application has been approved!");
-                                } catch (FileNotFoundException ex) {
-                                    Logger.getLogger(Command_APP.class.getName()).log(Level.SEVERE, null, ex);
-                                    ch.sendMessage(sender, "&cAn error occurred.");
-                                } catch (IOException ex) {
-                                    Logger.getLogger(Command_APP.class.getName()).log(Level.SEVERE, null, ex);
-                                    ch.sendMessage(sender, "&cAn error occurred.");
+                                }
+                                else{
+                                    ch.sendMessage(sender, "&cPlayer is not applying for staff.");
                                 }
                             }
                             else{
-                                ch.sendMessage(sender, "&cPlayer is not applying for staff.");
+                                ch.sendMessage(sender, ch.ERROR_PLAYER_DOES_NOT_HAVE_PERMISSION_TO_MANAGE_GROUPS);
                             }
                         }
                         else if(fc.getString("permMan").equals("GroupManager")){
-                            FileConfiguration dc = sm.getConfig(args[1], true);
-                            if(dc.getBoolean("player.app")){
-                                resetConfig(args[1], dc);
-                                sm.getServer().dispatchCommand(sm.getServer().getConsoleSender(), "manuadd " + args[1] + " " + args[3]);
-                                sm.broadcast("&aCongratulations " + args[1] + ", you have been promoted to: " + args[3]);
-                                try {
-                                    Scanner scan = new Scanner(new File(sm.getFolder("data"), "staff.txt"));
-                                    List<String> list = new ArrayList<>();
-                                    int lines = 0;
-                                    while(scan.hasNextLine()){
-                                        list.add(scan.nextLine());
-                                        lines++;
-                                    }
-                                    Scanner scan2 = new Scanner(new File(sm.getFolder("data"), "applicants.txt"));
-                                    List<String> list2 = new ArrayList<>();
-                                    int lines2 = 0;
-                                    while(scan2.hasNextLine()){
-                                        list2.add(scan2.nextLine());
-                                        lines2++;
-                                    }
-                                    String[] alrThr = new String[lines];
-                                    String[] alrThr2 = new String[lines2];
-                                    alrThr = list.toArray(alrThr);
-                                    alrThr2 = list2.toArray(alrThr2);
-                                    boolean check = false;
-                                    PrintWriter pw = new PrintWriter(new FileWriter(new File(sm.getFolder("data"), "staff.txt")));
-                                    for(int a = 0; a < alrThr.length; a++){
-                                        pw.println(alrThr[a]);
-                                        if(alrThr[a].equals(args[1])){
-                                            check = true;
+                            if(sender.hasPermission("groupmanager.manuadd")){
+                                FileConfiguration dc = sm.getConfig(args[1], true);
+                                if(dc.getBoolean("player.app")){
+                                    resetConfig(args[1], dc);
+                                    sm.getServer().dispatchCommand(sender, "manuadd " + args[1] + " " + args[3]);
+                                    sm.broadcast("&aCongratulations " + args[1] + ", you have been promoted to: " + args[3]);
+                                    try {
+                                        Scanner scan = new Scanner(new File(sm.getFolder("data"), "staff.txt"));
+                                        List<String> list = new ArrayList<>();
+                                        int lines = 0;
+                                        while(scan.hasNextLine()){
+                                            list.add(scan.nextLine());
+                                            lines++;
                                         }
-                                    }
-                                    if(!check){
-                                        pw.println(args[1]);
-                                    }
-                                    pw.close();
-                                    PrintWriter pw2 = new PrintWriter(new FileWriter(new File(sm.getFolder("data"), "applicants.txt")));
-                                    for(int a = 0; a < alrThr2.length; a++){
-                                        if(!args[1].equals(alrThr2[a])){
-                                            pw2.println(alrThr2[a]);
+                                        Scanner scan2 = new Scanner(new File(sm.getFolder("data"), "applicants.txt"));
+                                        List<String> list2 = new ArrayList<>();
+                                        int lines2 = 0;
+                                        while(scan2.hasNextLine()){
+                                            list2.add(scan2.nextLine());
+                                            lines2++;
                                         }
+                                        String[] alrThr = new String[lines];
+                                        String[] alrThr2 = new String[lines2];
+                                        alrThr = list.toArray(alrThr);
+                                        alrThr2 = list2.toArray(alrThr2);
+                                        boolean check = false;
+                                        PrintWriter pw = new PrintWriter(new FileWriter(new File(sm.getFolder("data"), "staff.txt")));
+                                        for(int a = 0; a < alrThr.length; a++){
+                                            pw.println(alrThr[a]);
+                                            if(alrThr[a].equals(args[1])){
+                                                check = true;
+                                            }
+                                        }
+                                        if(!check){
+                                            pw.println(args[1]);
+                                        }
+                                        pw.close();
+                                        PrintWriter pw2 = new PrintWriter(new FileWriter(new File(sm.getFolder("data"), "applicants.txt")));
+                                        for(int a = 0; a < alrThr2.length; a++){
+                                            if(!args[1].equals(alrThr2[a])){
+                                                pw2.println(alrThr2[a]);
+                                            }
+                                        }
+                                        pw2.close();
+                                        ch.sendMessage(sender, "&cSuccess!");
+                                        sm.getServer().dispatchCommand(sender, "email send " + args[1] + " Congratulations! Your application has been approved!");
+                                    } catch (FileNotFoundException ex) {
+                                        Logger.getLogger(Command_APP.class.getName()).log(Level.SEVERE, null, ex);
+                                    } catch (IOException ex) {
+                                        Logger.getLogger(Command_APP.class.getName()).log(Level.SEVERE, null, ex);
                                     }
-                                    pw2.close();
-                                    ch.sendMessage(sender, "&cSuccess!");
-                                    sm.getServer().dispatchCommand(sender, "email send " + args[1] + " Congratulations! Your application has been approved!");
-                                } catch (FileNotFoundException ex) {
-                                    Logger.getLogger(Command_APP.class.getName()).log(Level.SEVERE, null, ex);
-                                } catch (IOException ex) {
-                                    Logger.getLogger(Command_APP.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                                else{
+                                    ch.sendMessage(sender, "&cPlayer is not applying for staff.");
+                                }
+                            }
+                        }
+                        else if(fc.getString("permMan").equals("None")){
+                            if(sender.hasPermission("sma.app")){
+                                FileConfiguration dc = sm.getConfig(args[1], true);
+                                if(dc.getBoolean("player.app")){
+                                    resetConfig(args[1], dc);
+                                    sm.broadcast("&aCongratulations " + args[1] + ", you have been promoted to: " + args[3]);
+                                    try {
+                                        Scanner scan = new Scanner(new File(sm.getFolder("data"), "staff.txt"));
+                                        List<String> list = new ArrayList<>();
+                                        int lines = 0;
+                                        while(scan.hasNextLine()){
+                                            list.add(scan.nextLine());
+                                            lines++;
+                                        }
+                                        Scanner scan2 = new Scanner(new File(sm.getFolder("data"), "applicants.txt"));
+                                        List<String> list2 = new ArrayList<>();
+                                        int lines2 = 0;
+                                        while(scan2.hasNextLine()){
+                                            list2.add(scan2.nextLine());
+                                            lines2++;
+                                        }
+                                        String[] alrThr = new String[lines];
+                                        String[] alrThr2 = new String[lines2];
+                                        alrThr = list.toArray(alrThr);
+                                        alrThr2 = list2.toArray(alrThr2);
+                                        boolean check = false;
+                                        PrintWriter pw = new PrintWriter(new FileWriter(new File(sm.getFolder("data"), "staff.txt")));
+                                        for(int a = 0; a < alrThr.length; a++){
+                                            pw.println(alrThr[a]);
+                                            if(alrThr[a].equals(args[1])){
+                                                check = true;
+                                            }
+                                        }
+                                        if(!check){
+                                            pw.println(args[1]);
+                                        }
+                                        pw.close();
+                                        PrintWriter pw2 = new PrintWriter(new FileWriter(new File(sm.getFolder("data"), "applicants.txt")));
+                                        for(int a = 0; a < alrThr2.length; a++){
+                                            if(!args[1].equals(alrThr2[a])){
+                                                pw2.println(alrThr2[a]);
+                                            }
+                                        }
+                                        pw2.close();
+                                        ch.sendMessage(sender, "&cSuccess!");
+                                        sm.getServer().dispatchCommand(sender, "email send " + args[1] + " Congratulations! Your application has been approved!");
+                                    } catch (FileNotFoundException ex) {
+                                        Logger.getLogger(Command_APP.class.getName()).log(Level.SEVERE, null, ex);
+                                    } catch (IOException ex) {
+                                        Logger.getLogger(Command_APP.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
+                                }
+                                else{
+                                    ch.sendMessage(sender, "&cPlayer is not applying for staff.");
                                 }
                             }
                             else{
-                                ch.sendMessage(sender, "&cPlayer is not applying for staff.");
+                                ch.sendMessage(sender, ch.ERROR_PLAYER_DOES_NOT_HAVE_PERMISSION_TO_MANAGE_GROUPS);
                             }
                         }
                     }
