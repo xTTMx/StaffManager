@@ -1,5 +1,6 @@
 package com.github.SkyBirdSoar.Main;
 
+import com.github.SkyBirdSoar.Util.configconverter;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,8 +32,16 @@ public class StaffManager extends JavaPlugin{
         SERVER_NAME = parseColor(SERVER_NAME);
         getVersion();
         PLUGIN = getPluginName(false);
-        this.checkConfig();
         generateHelp();
+        configconverter cc = new configconverter(this);
+        cc.convertConfig(VERSION, false);
+        try{
+            Metrics metrics = new Metrics(this);
+            metrics.start();
+        }
+        catch(IOException e){
+            getLogger().log(Level.SEVERE, "Failed to send stats");
+        }
     }
     @Override
     public void onDisable(){
@@ -98,33 +107,7 @@ public class StaffManager extends JavaPlugin{
     /**
      * Checks config.yml for invalid data and outputs valid data to the server administrator.
      */
-    private void checkConfig(){
-        File config = new File(getDataFolder(), "config" + EXT);
-        if (!(config.exists())){
-            this.reloadConfig("config", false);
-            getLogger().log(Level.INFO, "No config found, generating one for you...");
-        }
-        if (config.exists()){
-            FileConfiguration f = getConfig("config", false);
-            log(Level.INFO, "Reading data...");
-            if (f.getBoolean("applyOn")==true){
-                log(Level.INFO, "Recruitment for staff is OPEN. To change this, please adjust the applyOn value of config.yml");
-            }
-            if(f.getBoolean("applyOn")==false){
-                log(Level.INFO, "Recruitment for staff is CLOSED. To change this, please adjust the applyOn value of config.yml");
-            }
-            log(Level.INFO, "The server name set in the config is: " + SERVER_NAME);
-            if((f.getBoolean("applyOn") != true && f.getBoolean("applyOn") != false) || f.getInt("pagesNeeded") < 1 && f.getInt("pagesNeeded") > 6){
-                log(Level.SEVERE, "Invalid config.yml, regenerating...");
-                Boolean delete = config.delete();
-                if (delete == false){
-                    log(Level.SEVERE, "Unable to delete config.yml");
-                }
-                this.reloadConfig("config", false);
-            }
-        }
-    }
-    private void generateHelp(){
+    public void generateHelp(){
         File file = getFile("README", false, "txt");
         if(!file.exists()){
             InputStream defConfigStream = this.getResource("README.txt");

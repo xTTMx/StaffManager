@@ -27,7 +27,7 @@ public class Command_STAFF extends ListAPI{
                 for(int a = 0; a < array.length && a < 10; a++){
                     for(int b = 0; b < player.length -1; b++){
                         if(player[b].getName().equals(array[a])){
-                            staffOnline += array[a] + ", ";
+                            staffOnline += player[b].getDisplayName() + ", ";
                             noOfStaffOnline++;
                         }
                     }
