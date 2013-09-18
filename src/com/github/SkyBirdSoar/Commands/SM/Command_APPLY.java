@@ -1,5 +1,6 @@
 package com.github.SkyBirdSoar.Commands.SM;
 
+import com.github.SkyBirdSoar.Conversations.Main;
 import com.github.SkyBirdSoar.Main.CommandHandler;
 import com.github.SkyBirdSoar.Main.StaffManager;
 import org.bukkit.command.Command;

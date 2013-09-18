@@ -1,6 +1,5 @@
 package com.github.SkyBirdSoar.Main;
 
-import com.github.SkyBirdSoar.Util.configconverter;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,16 +31,7 @@ public class StaffManager extends JavaPlugin{
         SERVER_NAME = parseColor(SERVER_NAME);
         getVersion();
         PLUGIN = getPluginName(false);
-        generateHelp();
-        configconverter cc = new configconverter(this);
-        cc.convertConfig(VERSION, false);
-        try{
-            Metrics metrics = new Metrics(this);
-            metrics.start();
-        }
-        catch(IOException e){
-            getLogger().log(Level.SEVERE, "Failed to send stats");
-        }
+        generateHelp();        
     }
     @Override
     public void onDisable(){

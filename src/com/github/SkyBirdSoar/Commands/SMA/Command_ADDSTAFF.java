@@ -1,5 +1,6 @@
 package com.github.SkyBirdSoar.Commands.SMA;
 
+import com.github.SkyBirdSoar.API.WriteAndReadAPI;
 import com.github.SkyBirdSoar.Commands.SM.Command_STAFF;
 import com.github.SkyBirdSoar.Main.CommandHandler;
 import com.github.SkyBirdSoar.Main.StaffManager;
@@ -16,14 +17,17 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class Command_ADDSTAFF {
+public class Command_ADDSTAFF extends WriteAndReadAPI{
     private StaffManager sm;
     private CommandHandler ch;
     public Command_ADDSTAFF(StaffManager pl, CommandHandler pl2){
+        super(pl, pl2, "data", "staff.txt");
         sm = pl;
         ch = pl2;
     }
     public void addstaff(CommandSender sender, Command command, String label, String[] args){
+        this.command(sender, command, label, args);
+        /*
         if(args.length == 1){
             ch.sendMessage(sender, "&c/sma addstaff <IGN>");
         }
@@ -68,7 +72,7 @@ public class Command_ADDSTAFF {
             ch.sendMessage(sender, "&cToo many arguments!");
             ch.sendMessage(sender, "&c/sma addstaff <IGN>");
         }
-        
+        */
     }
     private File getStaffFile(){
         File file = sm.getFolder("data");
@@ -82,5 +86,12 @@ public class Command_ADDSTAFF {
             }
         }
         return file;
+    }
+
+    @Override
+    public void command(CommandSender sender, Command cmd, String label, String[] args) {
+        this.setMessage(true, "&aSuccessfully added " + sender.getName() + " to staff!");
+        this.setMessage(false, "&cFailed to add player to staff.");
+        this.setText(args[1], sender);
     }
 }

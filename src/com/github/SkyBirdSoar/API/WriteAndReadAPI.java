@@ -15,13 +15,15 @@ import java.util.logging.Logger;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-public abstract class WriteAPI {
+public abstract class WriteAndReadAPI {
     protected StaffManager sm;
     protected CommandHandler ch;
     private String folder = "";
     private String file = "";
     private int lines = 0;
-    public WriteAPI(StaffManager pl, CommandHandler pl2, String folder, String file){
+    private String successfulMessage = "";
+    private String failedMessage = "";
+    public WriteAndReadAPI(StaffManager pl, CommandHandler pl2, String folder, String file){
         sm = pl;
         ch = pl2;
         setFolder(folder);
@@ -60,7 +62,7 @@ public abstract class WriteAPI {
         g = list.toArray(g);
         return g;
     }
-    protected void setText(String toPrintIn){
+    protected void setText(String toPrintIn, CommandSender sender){
         try {
             String[] b = getText();
             PrintWriter pw = new PrintWriter(new FileWriter(getDataFile()));
@@ -69,12 +71,15 @@ public abstract class WriteAPI {
             }
             pw.println(toPrintIn);
             pw.close();
+            sender.sendMessage(getMessage(true));
         } 
         catch (FileNotFoundException ex) {
             sm.getLogger().log(Level.SEVERE, null, ex);
+            sender.sendMessage(getMessage(false));
         } 
         catch (IOException ex) {
             sm.getLogger().log(Level.SEVERE, null, ex);
+            sender.sendMessage(getMessage(false));
         }
     }
     protected void removeText(String toRemove){
@@ -96,4 +101,30 @@ public abstract class WriteAPI {
         }
     }
     public abstract void command(CommandSender sender, Command cmd, String label, String[] args);
+    protected void setMessage(boolean success, String a){
+        if(success){
+            successfulMessage = sm.parseColor("&a" + a);
+        }
+        else{
+            failedMessage = sm.parseColor("&a" + a);
+        }
+    }
+    private String getMessage(boolean success){
+        if(success){
+            if(successfulMessage.equals("")){
+                return sm.parseColor("&aSuccess!");
+            }
+            else{
+                return successfulMessage;
+            }
+        }
+        else{
+            if(failedMessage.equals("")){
+                return sm.parseColor("&cFailed!");
+            }
+            else{
+                return failedMessage;
+            }
+        }
+    }
 }

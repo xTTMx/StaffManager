@@ -16,10 +16,18 @@ Special Thanks: Bryansheckler
 ###################################
 #          CHANGELOG              #
 ###################################
-From 1.0.1 to 1.0.2
+From 1.0.2 to 1.0.3
 -------
-* Instead of IGNs, current staff online list will now display nick names for staff (I think).
-* No more checking for invalid values in the config, you have to make sure you inputted them correctly.
-* Added config.yml version checker - Checks if config.yml is compatible with current version of the plugin.
-* Added Plugin Metrics :) Sorry... Just curious XD
-* To disable, go to /plugins/PluginMetrics/config.yml and set opt-out to true.
+* UNTESTED FEATURE:
+  - Description:
+    - A command that allows players to apply in game! I have no one to test it for me so... USE AT YOUR OWN RISK.
+  - How to use:
+    - /sm test
+    - Note! This has no permissions and will not be listed in /sm help!
+  - What does it do:
+    - It'll guide you through the process of applying. The prompts are currently not configurable.
+    - Once its done, you can go to ~/StaffManager/players/PLAYER_NAME.yml and you can see the data submitted from there under "applications".
+  - What to do:
+    - Help me by sending a PLAYER_NAME.yml file to me (If possible also what you entered in the process).
+    - Contact me at Skype: skypandafusion
+Thank you! :)

@@ -35,7 +35,7 @@ public class Command_SM {
             if(args.length > 0){
                 boolean correctCommand = false;
                 for(int a = 0; a < commands.length; a++){
-                    if(args[0].equals(commands[a])){
+                    if(args[0].equals(commands[a]) || args[0].equals("test")){
                         correctCommand = true;
                     }
                 }
@@ -127,6 +127,19 @@ public class Command_SM {
                                 ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
                             }
                             break;
+                        case "apply":
+                            if(sender.hasPermission("sm.apply")){
+                                Command_APPLY cmda = new Command_APPLY(sm, ch);
+                                cmda.apply(sender, cmd, label, args);
+                            }
+                            else{
+                                ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
+                            }
+                            break;
+                        case "test":
+                            Command_TEST cmdt = new Command_TEST(sm);
+                            cmdt.test(sender, cmd, label, args);
+                            break;
                         default:
                             ch.sendMessage(sender, "&cSorry, the command you asked for is not implemented yet.");
                             break;
@@ -167,16 +180,15 @@ public class Command_SM {
             toWrite[9] = " &d- SKYPE";
             toWrite[10] = " &d- DESRIPTION OF YOURSELF";
             toWrite[11] = " &d- STAFF EXPERIENCE IN OTHER SERVERS";
-            toWrite[12] = " &d- HOW LONG HAVE YOU BEEN ON THE SERVER";
-            toWrite[13] = " &d- YOUR CURRENT RANK";
-            toWrite[14] = " &d- WHAT RANK ARE YOU APPLYING FOR";
-            toWrite[15] = " &d- WHAT WOULD YOU DO IF YOU FOUND A GLITCH";
-            toWrite[16] = " &d- WHO IS THE OWNER OF THE SERVER";
-            toWrite[17] = "&1NOTE: &cAll fields are mandatory";
-            toWrite[18] = "&14. &aSign the book and be sure to drop it in the hopper!";
-            toWrite[19] = "&15. &aDo &d/sm apply";
-            toWrite[20] = "&16. &aGet people to vote for you!";
-            toWrite[21] = "&17. &aDo &d/sm help &ato find out what other commands you can do";
+            toWrite[12] = " &d- YOUR CURRENT RANK";
+            toWrite[13] = " &d- WHAT RANK ARE YOU APPLYING FOR";
+            toWrite[14] = " &d- WHAT WOULD YOU DO IF YOU FOUND A GLITCH";
+            toWrite[15] = " &d- WHO IS THE OWNER OF THE SERVER";
+            toWrite[16] = "&1NOTE: &cAll fields are mandatory";
+            toWrite[17] = "&14. &aSign the book and be sure to drop it in the hopper!";
+            toWrite[18] = "&15. &aDo &d/sm apply";
+            toWrite[19] = "&16. &aGet people to vote for you!";
+            toWrite[20] = "&17. &aDo &d/sm help &ato find out what other commands you can do";
             for(int a = 0; a < toWrite.length; a++){
                 String toPrint = sm.parseColor(toWrite[a]);
                 pw.println(toPrint);
