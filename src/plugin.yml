@@ -1,6 +1,6 @@
 name: StaffManager
 main: com.github.SkyBirdSoar.Main.StaffManager
-version: 1.0.3 Alpha
+version: 1.0.4
 Author: SkyBirdSoar
 softdepend: [PermissionsEx, GroupManager]
 depend: [Essentials]

@@ -5,22 +5,22 @@ import org.bukkit.conversations.ConversationContext;
 import org.bukkit.conversations.Prompt;
 import org.bukkit.conversations.StringPrompt;
 
-public class RankPrompt extends StringPrompt{
-
+public class PROMPT_5 extends StringPrompt{
     private Main m;
-    public RankPrompt(Main p){
-        m = p;
+    public PROMPT_5(Main s){
+        m = s;
     }
+
     @Override
     public String getPromptText(ConversationContext cc) {
-        return m.sm.parseColor(("&aWhat rank are you applying for?"));
+        return m.sm.parseColor("&aWhat is your skype?");
     }
 
     @Override
     public Prompt acceptInput(ConversationContext cc, String string) {
-        FileConfiguration fc = m.sm.getConfig(m.p.getName(), true);
-        fc.set("application.rank", string);
-        m.sm.saveConfig(m.p.getName(), fc, true);
-        return new EndPrompt(m);
+        FileConfiguration fc = m.sm.getConfig(m.getSender().getName(), true);
+        fc.set("application.skype", string);
+        m.sm.saveConfig(m.getSender().getName(), fc, true);
+        return m.getNextPrompt(5);
     }
 }

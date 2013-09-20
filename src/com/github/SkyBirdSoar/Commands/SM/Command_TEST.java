@@ -4,6 +4,7 @@ import com.github.SkyBirdSoar.Conversations.Main;
 import com.github.SkyBirdSoar.Main.StaffManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 public class Command_TEST{
@@ -19,7 +20,9 @@ public class Command_TEST{
             m.converse(p);
         }
         else{
-            sender.sendMessage(sm.parseColor("&cSorry, only players can apply."));
+            if(sender instanceof ConsoleCommandSender){
+                m.converse((ConsoleCommandSender) sender);
+            }
         }
     }
 }

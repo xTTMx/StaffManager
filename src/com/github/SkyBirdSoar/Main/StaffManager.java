@@ -113,6 +113,12 @@ public class StaffManager extends JavaPlugin{
         }
         return a;
     }
+    public String[] parseColor(String[] a){
+        for(int b = 0; b < a.length; b++){
+            a[b] = parseColor(a[b]);
+        }
+        return a;
+    }
     public void log(Level a, String b){
         getLogger().log(a, b);        
     }
