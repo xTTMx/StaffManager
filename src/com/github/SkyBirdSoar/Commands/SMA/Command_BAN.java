@@ -1,6 +1,8 @@
 package com.github.SkyBirdSoar.Commands.SMA;
 
+import com.github.SkyBirdSoar.API.WriteAndReadAPI;
 import com.github.SkyBirdSoar.Main.CommandHandler;
+import com.github.SkyBirdSoar.Main.ERROR;
 import com.github.SkyBirdSoar.Main.StaffManager;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,10 +18,11 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 
-public class Command_BAN {
+public class Command_BAN extends WriteAndReadAPI{
     private StaffManager sm;
     private CommandHandler ch;
     public Command_BAN(StaffManager pl, CommandHandler pl2){
+        super(pl, pl2, "data", "banned.txt");
         sm = pl;
         ch = pl2;
     }
@@ -56,11 +59,11 @@ public class Command_BAN {
                 }  
             }
             else{
-                ch.sendMessage(sender, ch.ERROR_PLAYER_ALREADY_BANNED);
+                ch.sendMessage(sender, ERROR.ERROR_PLAYER_ALREADY_BANNED);
             }
         }
         else{
-            ch.sendMessage(sender, ch.ERROR_PLAYER_NOT_FOUND);
+            ch.sendMessage(sender, ERROR.ERROR_PLAYER_NOT_FOUND);
         }
     }  
     private File getDataFile(){
@@ -75,5 +78,12 @@ public class Command_BAN {
             }
         }
         return file;
+    }
+
+    @Override
+    public void command(CommandSender sender, Command cmd, String label, String[] args) {
+        this.setMessage(true, "&aSuccessfully banned player from using /sm apply.");
+        this.setMessage(false, "&cFailed to perform command.");
+        this.setText(args[1], sender);
     }
 }

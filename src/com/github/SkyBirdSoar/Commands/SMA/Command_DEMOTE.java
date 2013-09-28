@@ -1,5 +1,6 @@
 package com.github.SkyBirdSoar.Commands.SMA;
 
+import com.github.SkyBirdSoar.API.WriteAndReadAPI;
 import com.github.SkyBirdSoar.Main.CommandHandler;
 import com.github.SkyBirdSoar.Main.StaffManager;
 import java.io.File;
@@ -14,10 +15,11 @@ import java.util.logging.Logger;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-public class Command_DEMOTE {
+public class Command_DEMOTE extends WriteAndReadAPI{
     private StaffManager sm;
     private CommandHandler ch;
     public Command_DEMOTE(StaffManager pl, CommandHandler pl2){
+        super(pl, pl2, "data", "staff.txt");
         sm = pl;
         ch = pl2;
     }
@@ -26,6 +28,9 @@ public class Command_DEMOTE {
             ch.sendMessage(sender, "&c/sma demote <IGN>");
         }
         if(args.length == 2){
+            this.command(sender, cmd, label, args);
+        }
+            /*
             File file = getStaffFile();
             PrintWriter pw = null;
             try{
@@ -67,7 +72,7 @@ public class Command_DEMOTE {
             ch.sendMessage(sender, "&cToo many arguments!");
             ch.sendMessage(sender, "&c/sma demote <IGN>");
         }
-        
+        */
     }
     private File getStaffFile(){
         File file = sm.getFolder("data");
@@ -81,5 +86,10 @@ public class Command_DEMOTE {
             }
         }
         return file;
+    }
+
+    @Override
+    public void command(CommandSender sender, Command cmd, String label, String[] args) {
+        this.removeText(args[1], sender);
     }
 }

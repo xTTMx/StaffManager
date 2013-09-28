@@ -1,6 +1,7 @@
 package com.github.SkyBirdSoar.Commands.SM;
 
 import com.github.SkyBirdSoar.Main.CommandHandler;
+import com.github.SkyBirdSoar.Main.ERROR;
 import com.github.SkyBirdSoar.Main.StaffManager;
 import java.io.File;
 import java.util.List;
@@ -27,7 +28,7 @@ public class Command_VOTE {
                 if(changed){
                     boolean hasVoted = list.contains(sender.getName());
                     if(hasVoted){
-                        ch.sendMessage(sender, ch.ERROR_PLAYER_ALREADY_VOTED);
+                        ch.sendMessage(sender, ERROR.ERROR_PLAYER_ALREADY_VOTED);
                     }
                     else{
                         if(args.length == 2){
@@ -41,23 +42,23 @@ public class Command_VOTE {
                                 this.voteDown(sender, args, fc, listd);
                             }
                             else{
-                                ch.sendMessage(sender, ch.ERROR_UNKNOWN_ARGUMENT + args[2]);
+                                ch.sendMessage(sender, ERROR.ERROR_UNKNOWN_ARGUMENT + args[2]);
                                 ch.sendMessage(sender, "&c/sm vote <IGN> <up|down>");
                             }
                         }
                     }
                 }
                 else{
-                    ch.sendMessage(sender, ch.ERROR_LIST_NOT_CHANGED);
+                    ch.sendMessage(sender, ERROR.ERROR_LIST_NOT_CHANGED);
                 }  
             }
             else{
-                ch.sendMessage(sender, ch.ERROR_PLAYER_NOT_APPLYING);
+                ch.sendMessage(sender, ERROR.ERROR_PLAYER_NOT_APPLYING);
             }
             
         }
         else{
-            ch.sendMessage(sender, ch.ERROR_PLAYER_NOT_FOUND);
+            ch.sendMessage(sender, ERROR.ERROR_PLAYER_NOT_FOUND);
         }
     }
     private void voteUp(CommandSender sender, String[] args, FileConfiguration fc, List<String> list){

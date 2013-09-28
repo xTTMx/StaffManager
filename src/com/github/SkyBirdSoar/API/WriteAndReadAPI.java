@@ -82,7 +82,7 @@ public abstract class WriteAndReadAPI {
             sender.sendMessage(getMessage(false));
         }
     }
-    protected void removeText(String toRemove){
+    protected void removeText(String toRemove, CommandSender sender){
         try {
             String[] b = getText();
             PrintWriter pw = new PrintWriter(new FileWriter(getDataFile()));
@@ -92,12 +92,15 @@ public abstract class WriteAndReadAPI {
                 }
             }
             pw.close();
+            sender.sendMessage(getMessage(true));
         } 
         catch (FileNotFoundException ex) {
             sm.getLogger().log(Level.SEVERE, null, ex);
+            sender.sendMessage(getMessage(false));
         } 
         catch (IOException ex) {
             sm.getLogger().log(Level.SEVERE, null, ex);
+            sender.sendMessage(getMessage(false));
         }
     }
     public abstract void command(CommandSender sender, Command cmd, String label, String[] args);

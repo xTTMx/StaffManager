@@ -1,6 +1,7 @@
 package com.github.SkyBirdSoar.Commands.SM;
 
 import com.github.SkyBirdSoar.Main.CommandHandler;
+import com.github.SkyBirdSoar.Main.ERROR;
 import com.github.SkyBirdSoar.Main.StaffManager;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -29,13 +30,13 @@ public class Command_SM {
                     printHelpFile(1, sender);
                 }
                 else{
-                    ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
+                    ch.sendMessage(sender, ERROR.PERMISSION_MESSAGE);
                 }
             }
             if(args.length > 0){
                 boolean correctCommand = false;
                 for(int a = 0; a < commands.length; a++){
-                    if(args[0].equals(commands[a]) || args[0].equals("test")){
+                    if(args[0].equals(commands[a])){
                         correctCommand = true;
                     }
                 }
@@ -46,7 +47,7 @@ public class Command_SM {
                                 printHelpFile(2, sender);
                             }
                             else{
-                                ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
+                                ch.sendMessage(sender, ERROR.PERMISSION_MESSAGE);
                             }
                             break;
                         case "3":
@@ -54,7 +55,7 @@ public class Command_SM {
                                 printHelpFile(3, sender);
                             }
                             else{
-                                ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
+                                ch.sendMessage(sender, ERROR.PERMISSION_MESSAGE);
                             }
                             break;
                         case "4":
@@ -62,7 +63,7 @@ public class Command_SM {
                                 printHelpFile(4, sender);
                             }
                             else{
-                                ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
+                                ch.sendMessage(sender, ERROR.PERMISSION_MESSAGE);
                             }
                             break;
                         case "5":
@@ -70,7 +71,7 @@ public class Command_SM {
                                 printHelpFile(5, sender);
                             }
                             else{
-                                ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
+                                ch.sendMessage(sender, ERROR.PERMISSION_MESSAGE);
                             }
                             break;
                         case "help":
@@ -79,7 +80,7 @@ public class Command_SM {
                                 cmdh.help(sender, cmd, label, args);
                             }
                             else{
-                                ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
+                                ch.sendMessage(sender, ERROR.PERMISSION_MESSAGE);
                             }
                             break;
                         case "status":
@@ -88,7 +89,7 @@ public class Command_SM {
                                 cmds.status(sender, cmd, label, args);
                             }
                             else{
-                                ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
+                                ch.sendMessage(sender, ERROR.PERMISSION_MESSAGE);
                             }
                             break;
                         case "top":
@@ -97,7 +98,7 @@ public class Command_SM {
                                 cmdt.top(sender, cmd, label, args);
                             }
                             else{
-                                ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
+                                ch.sendMessage(sender, ERROR.PERMISSION_MESSAGE);
                             }
                             break;
                         case "applicants":
@@ -106,7 +107,7 @@ public class Command_SM {
                                 cmda.list(sender, cmd, label, args);
                             }
                             else{
-                                ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
+                                ch.sendMessage(sender, ERROR.PERMISSION_MESSAGE);
                             }
                             break;
                         case "staff":
@@ -115,7 +116,7 @@ public class Command_SM {
                                 cmds.list(sender, cmd, label, args);
                             }
                             else{
-                                ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
+                                ch.sendMessage(sender, ERROR.PERMISSION_MESSAGE);
                             }
                             break;
                         case "vote":
@@ -124,7 +125,7 @@ public class Command_SM {
                                 cmdv.vote(sender, cmd, label, args);
                             }
                             else{
-                                ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
+                                ch.sendMessage(sender, ERROR.PERMISSION_MESSAGE);
                             }
                             break;
                         case "apply":
@@ -133,12 +134,8 @@ public class Command_SM {
                                 cmda.apply(sender, cmd, label, args);
                             }
                             else{
-                                ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
+                                ch.sendMessage(sender, ERROR.PERMISSION_MESSAGE);
                             }
-                            break;
-                        case "test":
-                            Command_TEST cmdt = new Command_TEST(sm);
-                            cmdt.test(sender, cmd, label, args);
                             break;
                         default:
                             ch.sendMessage(sender, "&cSorry, the command you asked for is not implemented yet.");

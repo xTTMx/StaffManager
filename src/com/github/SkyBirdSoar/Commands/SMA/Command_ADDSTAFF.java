@@ -26,12 +26,13 @@ public class Command_ADDSTAFF extends WriteAndReadAPI{
         ch = pl2;
     }
     public void addstaff(CommandSender sender, Command command, String label, String[] args){
-        this.command(sender, command, label, args);
-        /*
         if(args.length == 1){
             ch.sendMessage(sender, "&c/sma addstaff <IGN>");
         }
         if(args.length == 2){
+            this.command(sender, command, label, args);
+        }
+        /*
             File file = getStaffFile();
             PrintWriter pw = null;
             try{

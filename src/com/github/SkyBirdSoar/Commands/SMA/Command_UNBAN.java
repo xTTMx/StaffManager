@@ -1,6 +1,8 @@
 package com.github.SkyBirdSoar.Commands.SMA;
 
+import com.github.SkyBirdSoar.API.WriteAndReadAPI;
 import com.github.SkyBirdSoar.Main.CommandHandler;
+import com.github.SkyBirdSoar.Main.ERROR;
 import com.github.SkyBirdSoar.Main.StaffManager;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,10 +18,11 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 
-public class Command_UNBAN {
+public class Command_UNBAN extends WriteAndReadAPI{
     private StaffManager sm;
     private CommandHandler ch;
     public Command_UNBAN(StaffManager pl, CommandHandler pl2){
+        super(pl, pl2, "data", "banned.txt");
         sm = pl;
         ch = pl2;
     }
@@ -57,11 +60,11 @@ public class Command_UNBAN {
                 }  
             }
             else{
-                ch.sendMessage(sender, ch.ERROR_PLAYER_NOT_BANNED);
+                ch.sendMessage(sender, ERROR.ERROR_PLAYER_NOT_BANNED);
             }
         }
         else{
-            ch.sendMessage(sender, ch.ERROR_PLAYER_NOT_FOUND);
+            ch.sendMessage(sender, ERROR.ERROR_PLAYER_NOT_FOUND);
         }
     }  
     private File getDataFile(){
@@ -76,5 +79,10 @@ public class Command_UNBAN {
             }
         }
         return file;
+    }
+
+    @Override
+    public void command(CommandSender sender, Command cmd, String label, String[] args) {
+        this.removeText(args[1], sender);
     }
 }

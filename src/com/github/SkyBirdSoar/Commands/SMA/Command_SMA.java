@@ -1,6 +1,7 @@
 package com.github.SkyBirdSoar.Commands.SMA;
 
 import com.github.SkyBirdSoar.Main.CommandHandler;
+import com.github.SkyBirdSoar.Main.ERROR;
 import com.github.SkyBirdSoar.Main.StaffManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -20,7 +21,7 @@ public class Command_SMA {
                 ch.sendMessage(sender, "&cType /sma help for help.");
             }
             else{
-                ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
+                ch.sendMessage(sender, ERROR.PERMISSION_MESSAGE);
             }
         }
         if(args.length > 0){
@@ -53,7 +54,7 @@ public class Command_SMA {
                             }
                         }
                         else{
-                            ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
+                            ch.sendMessage(sender, ERROR.PERMISSION_MESSAGE);
                         }
                         break;
                     case "version":
@@ -61,7 +62,7 @@ public class Command_SMA {
                             ch.sendMessage(sender, sm.getPluginName(true));
                         }
                         else{
-                            ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
+                            ch.sendMessage(sender, ERROR.PERMISSION_MESSAGE);
                         }
                         break;
                     case "help":
@@ -70,7 +71,7 @@ public class Command_SMA {
                             cmdh.help(sender, cmd, label, args);
                         }
                         else{
-                            ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
+                            ch.sendMessage(sender, ERROR.PERMISSION_MESSAGE);
                         }
                         break;
                     case "addstaff":
@@ -79,7 +80,7 @@ public class Command_SMA {
                             cmdas.addstaff(sender, cmd, label, args);
                         }
                         else{
-                            ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
+                            ch.sendMessage(sender, ERROR.PERMISSION_MESSAGE);
                         }
                         break;
                     case "remove":
@@ -92,7 +93,7 @@ public class Command_SMA {
                             cmdd.demote(sender, cmd, label, args);
                         }
                         else{
-                            ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
+                            ch.sendMessage(sender, ERROR.PERMISSION_MESSAGE);
                         }
                         break;
                     case "purge":
@@ -101,7 +102,7 @@ public class Command_SMA {
                             cmdp.purge(sender, cmd, label, args);
                         }
                         else{
-                            ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
+                            ch.sendMessage(sender, ERROR.PERMISSION_MESSAGE);
                         }
                         break;
                     case "resetvotes":
@@ -110,7 +111,7 @@ public class Command_SMA {
                             cmdrv.resetVotes(sender, cmd, label, args);
                         }
                         else{
-                            ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
+                            ch.sendMessage(sender, ERROR.PERMISSION_MESSAGE);
                         }
                         break;
                     case "app":
@@ -119,7 +120,7 @@ public class Command_SMA {
                             cmda.app(sender, cmd, label, args);
                         }
                         else{
-                            ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
+                            ch.sendMessage(sender, ERROR.PERMISSION_MESSAGE);
                         }
                         break;
                     case "ban":
@@ -128,7 +129,7 @@ public class Command_SMA {
                             cmdb.ban(sender, cmd, label, args);
                         }
                         else{
-                            ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
+                            ch.sendMessage(sender, ERROR.PERMISSION_MESSAGE);
                         }
                         break;
                     case "unban":
@@ -137,7 +138,7 @@ public class Command_SMA {
                             cmdub.unban(sender, cmd, label, args);
                         }
                         else{
-                            ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
+                            ch.sendMessage(sender, ERROR.PERMISSION_MESSAGE);
                         }
                         break;
                     case "banlist":
@@ -146,7 +147,7 @@ public class Command_SMA {
                             cmdbl.list(sender, cmd, label, args);
                         }
                         else{
-                            ch.sendMessage(sender, ch.PERMISSION_MESSAGE);
+                            ch.sendMessage(sender, ERROR.PERMISSION_MESSAGE);
                         }
                         break;
                     default:

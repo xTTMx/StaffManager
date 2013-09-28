@@ -2,6 +2,7 @@ package com.github.SkyBirdSoar.Commands.SMA;
 
 import com.github.SkyBirdSoar.Exceptions.UnknownPermissionsManagerException;
 import com.github.SkyBirdSoar.Main.CommandHandler;
+import com.github.SkyBirdSoar.Main.ERROR;
 import com.github.SkyBirdSoar.Main.SMEventHandler;
 import com.github.SkyBirdSoar.Main.StaffManager;
 import java.io.File;
@@ -102,7 +103,7 @@ public class Command_APP {
                                 }
                             }
                             else{
-                                ch.sendMessage(sender, ch.ERROR_PLAYER_DOES_NOT_HAVE_PERMISSION_TO_MANAGE_GROUPS);
+                                ch.sendMessage(sender, ERROR.ERROR_PLAYER_DOES_NOT_HAVE_PERMISSION_TO_MANAGE_GROUPS);
                             }
                         }
                         else if(fc.getString("permMan").equals("GroupManager")){
@@ -220,7 +221,7 @@ public class Command_APP {
                                 }
                             }
                             else{
-                                ch.sendMessage(sender, ch.ERROR_PLAYER_DOES_NOT_HAVE_PERMISSION_TO_MANAGE_GROUPS);
+                                ch.sendMessage(sender, ERROR.ERROR_PLAYER_DOES_NOT_HAVE_PERMISSION_TO_MANAGE_GROUPS);
                             }
                         }
                     }
