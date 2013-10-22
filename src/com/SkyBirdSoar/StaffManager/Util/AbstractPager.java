@@ -53,7 +53,7 @@ public abstract class AbstractPager extends AbstractSMCommand{
         this.title = title;
     }
     
-    public AbstractPager(String desc, String label, List l, String title){
+    public AbstractPager(String desc, String label, List<String> l, String title){
         super(desc, label);
         this.l = l;
         this.title = title;
