@@ -1,24 +1,5 @@
 name: StaffManager
-main: com.github.SkyBirdSoar.Main.StaffManager
-version: 1.1.0
-Author: SkyBirdSoar
-softdepend: [PermissionsEx, GroupManager]
-depend: [Essentials]
+main: com.SkyBirdSoar.StaffManager.Main.StaffManager
+version: 2.0.0
 commands:
-   sm:
-     description: Default StaffManager command.
-     usage: /sm
-     permission: sm.sm
-     permission-message: You do not have permission to use this command.
-   sma:
-     description: StaffManager Administrative command.
-     usage: /sma help
-     permission: sma.help
-     permission-message: You do not have permission to use this command.
-permissions:
-  sm.*:
-    default: true
-  sma.*:
-    default: op
-    children:
-      sma.purge: false
+  sm:
