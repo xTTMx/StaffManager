@@ -7,10 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class StaffFileEditor implements FileEditor{
+public class StaffFileEditor implements FileEditor {
 
     private SMPlugin m;
-    public StaffFileEditor(SMPlugin m){
+
+    public StaffFileEditor(SMPlugin m) {
         this.m = m;
     }
 
@@ -18,17 +19,17 @@ public class StaffFileEditor implements FileEditor{
     public File getFile() {
         return new File(getFolder(), "staff.txt");
     }
-    
+
     public File getFolder() {
         return new File(m.getPluginFolder(), "data");
     }
 
     @Override
-    public List getList() throws FileNotFoundException{
-        if(getFile().exists()){
+    public List<String> getList() throws FileNotFoundException {
+        if (getFile().exists()) {
             Scanner scan = new Scanner(getFile());
             List<String> l = new ArrayList<>();
-            while(scan.hasNextLine()){
+            while (scan.hasNextLine()) {
                 l.add(scan.nextLine());
             }
             return l;
@@ -37,45 +38,36 @@ public class StaffFileEditor implements FileEditor{
     }
 
     @Override
-    public void addItem(Object o) {
-        if(o instanceof String){
-            try{
-                List<String> l = getList();
-                PrintWriter pw = new PrintWriter(getFile());
-                l.add((String) o);
-                for (int a = 0; a < l.size(); a++){
-                    pw.print(l.get(a));
-                }
-                pw.close();
+    public void addItem(String s) {
+
+        try {
+            List<String> l = getList();
+            PrintWriter pw = new PrintWriter(getFile());
+            l.add(s);
+            for (int a = 0; a < l.size(); a++) {
+                pw.print(l.get(a));
             }
-            catch(FileNotFoundException e){
-                m.consoleOut("&cError, FileNotFoundException: " + getFile().getAbsolutePath());
-            }
-        }
-        else{
-            throw new IllegalArgumentException("Object must be instance of String");
+            pw.close();
+        } catch (FileNotFoundException e) {
+            m.consoleOut("&cError, FileNotFoundException: " + getFile().getAbsolutePath());
         }
     }
 
     @Override
-    public void delItem(Object o) {
-        if(o instanceof String){
-            try{
-                List<String> l = getList();
-                PrintWriter pw = new PrintWriter(getFile());
-                for(String s : l){
-                    if(!s.equals(o)){
-                        pw.print(s);
-                    }
+    public void delItem(String s) {
+
+        try {
+            List<String> l = getList();
+            PrintWriter pw = new PrintWriter(getFile());
+            for (String a : l) {
+                if (!a.equals(s)) {
+                    pw.print(a);
                 }
-                pw.close();
             }
-            catch(FileNotFoundException e){
-                m.consoleOut("&cError, FileNotFoundException: " + getFile().getAbsolutePath());
-            }
+            pw.close();
+        } catch (FileNotFoundException e) {
+            m.consoleOut("&cError, FileNotFoundException: " + getFile().getAbsolutePath());
         }
-        else{
-            throw new IllegalArgumentException("Object must be instance of String");
-        }
+
     }
 }
