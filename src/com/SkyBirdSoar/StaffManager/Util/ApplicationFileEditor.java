@@ -29,7 +29,7 @@ public class ApplicationFileEditor implements FileEditor{
     }
 
     @Override
-    public List getList() throws FileNotFoundException{
+    public List<String> getList() throws FileNotFoundException{
         if(getFile().exists()){
             Scanner scan = new Scanner(getFile());
             List<String> l = new ArrayList<>();
@@ -42,46 +42,36 @@ public class ApplicationFileEditor implements FileEditor{
     }
 
     @Override
-    public void addItem(Object o) {
-        if(o instanceof String){
-            try{
-                List<String> l = getList();
-                PrintWriter pw = new PrintWriter(getFile());
-                l.add((String) o);
-                for (int a = 0; a < l.size(); a++){
-                    pw.print(l.get(a));
-                }
-                pw.close();
+    public void addItem(String s) {
+
+        try {
+            List<String> l = getList();
+            PrintWriter pw = new PrintWriter(getFile());
+            l.add(s);
+            for (int a = 0; a < l.size(); a++) {
+                pw.print(l.get(a));
             }
-            catch(FileNotFoundException e){
-                m.consoleOut("&cError, FileNotFoundException: " + getFile().getAbsolutePath());
-            }
+            pw.close();
+        } catch (FileNotFoundException e) {
+            m.consoleOut("&cError, FileNotFoundException: " + getFile().getAbsolutePath());
         }
-        else{
-            throw new IllegalArgumentException("Object must be instance of String");
-        }
+
     }
 
     @Override
-    public void delItem(Object o) {
-        if(o instanceof String){
-            try{
-                List<String> l = getList();
-                PrintWriter pw = new PrintWriter(getFile());
-                for(String s : l){
-                    if(!s.equals(o)){
-                        pw.print(s);
-                    }
+    public void delItem(String s) {
+        try {
+            List<String> l = getList();
+            PrintWriter pw = new PrintWriter(getFile());
+            for (String a : l) {
+                if (!a.equals(s)) {
+                    pw.print(a);
                 }
-                pw.close();
             }
-            catch(FileNotFoundException e){
-                m.consoleOut("&cError, FileNotFoundException: " + getFile().getAbsolutePath());
-            }
+            pw.close();
+        } catch (FileNotFoundException e) {
+            m.consoleOut("&cError, FileNotFoundException: " + getFile().getAbsolutePath());
         }
-        else{
-            throw new IllegalArgumentException("Object must be instance of String");
-        }
-    }
 
+    }
 }

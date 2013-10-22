@@ -1,6 +1,7 @@
 StaffManager
 ============
-LATEST VERSION: 1.0.1
+LATEST RELEASED VERSION: 1.1.0
+CURRENT-DEV-VERSION: 2.0.0#1ab
 
 BukkitDev: http://dev.bukkit.org/bukkit-plugins/staffmanager
 

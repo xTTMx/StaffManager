@@ -32,7 +32,7 @@ public abstract class AbstractPager extends AbstractSMCommand{
     private String title;
     private int maxPage = 0;
     private double temp = 0.0;
-    private List l = null;
+    private List<String> l = null;
     
     public AbstractPager(String desc, String label, File file, String title){
         super(desc, label);
