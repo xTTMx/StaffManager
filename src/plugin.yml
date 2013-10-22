@@ -1,0 +1,5 @@
+name: StaffManager
+main: com.SkyBirdSoar.StaffManager.Main.StaffManager
+version: 2.0.0
+commands:
+  sm:

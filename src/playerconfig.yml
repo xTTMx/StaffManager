@@ -1,0 +1,14 @@
+player:
+  isApplicant: false
+  isStaff: false
+  dateJoined: ''
+  isBlocked: false
+  isOnVoteAlertOn: false
+alert:
+  '10':
+    up: true
+    down: true
+application:
+  vote:
+    up: 0
+    down: 0

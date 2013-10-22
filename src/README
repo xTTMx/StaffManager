@@ -1,0 +1,17 @@
+#############################
+        STAFFMANAGER
+#############################
+CHANGELOG: v1.1.0 to v2.0.0
+INCOMPATIBLE WITH EARLIER FILES!
+----------
+* Added LICENSE file into the jar.
+* Online staff list now displays names in alternate colors.
+* COLORED output to console!
+* Player Configs changed.
+* Config changed.
+* /sma ban changed to /sma block; similarly to unban, unblock & banlist, blockedlist
+* StaffManager now less verbose, hides error logs in server.log, still sends warning that an error occured to console though.
+* More in-depth help, try '/sm help [command]'!
+* No more help pages displayed with '/sm' -> changed to '/sm info [page]'**!
+  ** More on that at dev.bukkit.org/server-plugins/staffmanager
+* '/sm top' removed (Might take up a lot of resources if it has a lot of players)
